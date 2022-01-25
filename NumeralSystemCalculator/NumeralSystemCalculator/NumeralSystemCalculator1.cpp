@@ -31,9 +31,9 @@ bool isMinus(std::string inputNumber) {
 std::string buildRightSide(std::string inputNumber, int indexOfDot, int numeralSystem) {
 	std::string output = "";
 	int power = -1;
-	for (int i = indexOfDot + 1; i < inputNumber.size(); i++) {
-		int index = (findElement(inputNumber.c_str()[i]));
-		output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(power) + output;
+	for (int i = 1; i < (inputNumber.size() - indexOfDot); i++) {
+		int index = (findElement(inputNumber.c_str()[i + indexOfDot]));
+		output = output + std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(-i) + " + ";
 		power--;
 	}
 	return output;
@@ -41,7 +41,7 @@ std::string buildRightSide(std::string inputNumber, int indexOfDot, int numeralS
 
 std::string buildLeftSide(std::string inputNumber, int indexOfDot, int numeralSystem) {
 	std::string output = "";
-	for (int i = 1; indexOfDot - i > 0; i++) {
+	for (int i = 1; i < indexOfDot; i++) {
 		int index = (findElement(inputNumber.c_str()[indexOfDot - (i)]));
 
 		output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " + output;
@@ -53,7 +53,7 @@ std::string buildResult(std::string inputNumber, int indexOfDot, int numeralSyst
 	std::string leftSide = buildLeftSide(inputNumber, indexOfDot, numeralSystem);
 	std::string rightSide = buildRightSide(inputNumber, indexOfDot, numeralSystem);
 	std::string output;
-	output = leftSide +"." + rightSide;
+	output = leftSide + rightSide;
 	if (minus) {
 		output = "-(" + output + ")";
 	}
