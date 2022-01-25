@@ -14,6 +14,68 @@ int findElement(char element) {
 	}
 }
 
+int searchDot(std::string inputNumber) {
+	for (int i = 0; i < inputNumber.size(); i++) {
+		if (inputNumber.c_str()[i] == '.' || inputNumber.c_str()[i] == ',') {
+			return i;
+		}
+	}
+	return -1;
+}
+bool isMinus(std::string inputNumber) {
+	if (inputNumber.c_str()[0] == '-') {
+		return true;
+	}
+	return false;
+}
+std::string buildRightSide(std::string inputNumber, int indexOfDot, int numeralSystem) {
+	std::string output = "";
+	int power = -1;
+	for (int i = indexOfDot + 1; i < inputNumber.size(); i++) {
+		int index = (findElement(inputNumber.c_str()[i]));
+		output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(power) + output;
+		power--;
+	}
+	return output;
+}
+
+std::string buildLeftSide(std::string inputNumber, int indexOfDot, int numeralSystem) {
+	std::string output = "";
+	for (int i = 1; indexOfDot - i > 0; i++) {
+		int index = (findElement(inputNumber.c_str()[indexOfDot - (i)]));
+
+		output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " + output;
+	}
+	return output;
+}
+
+std::string buildResult(std::string inputNumber, int indexOfDot, int numeralSystem, bool minus) {
+	std::string leftSide = buildLeftSide(inputNumber, indexOfDot, numeralSystem);
+	std::string rightSide = buildRightSide(inputNumber, indexOfDot, numeralSystem);
+	std::string output;
+	output = leftSide +"." + rightSide;
+	if (minus) {
+		output = "-(" + output + ")";
+	}
+	return output;
+}
+
+
+
+void sumOfTheBaseLevel(std::string inputNumber, int numeralSystem) {
+	bool minus = isMinus(inputNumber);
+	if (minus) {
+		inputNumber.erase(0, 1);
+	}
+	int indexOfDot = searchDot(inputNumber);
+	std::string output = buildResult(inputNumber, indexOfDot, numeralSystem, minus);
+	std::cout << output << std::endl;
+	std::cout << indexOfDot << minus << std::endl << inputNumber;
+
+}
+
+
+
 int revertCalculate(std::string inputnumber, int numeralSystem) {
 	int sum = 0;
 	std::string finalString;
@@ -65,6 +127,9 @@ int main() {
 		}
 		else if (functionPick == 0) {
 			calculate(atoi(inputNumber.c_str()), numeralSystem);
+		}
+		else if (functionPick == 2) {
+			sumOfTheBaseLevel(inputNumber, numeralSystem);
 		}
 		else if (functionPick == 108) {
 			int newNumeralSystem;

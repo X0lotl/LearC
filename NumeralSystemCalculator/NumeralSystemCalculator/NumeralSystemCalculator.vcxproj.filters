@@ -18,8 +18,5 @@
     <ClCompile Include="NumeralSystemCalculator1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="NumeralSystemCalculator2.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
