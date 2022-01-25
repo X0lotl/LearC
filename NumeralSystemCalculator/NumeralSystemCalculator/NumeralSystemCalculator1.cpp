@@ -6,6 +6,12 @@
 
 char characters[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
+std::string deleteLastPlus(std::string input) {
+	input.erase(input.size() - 1, 1);
+	std::string output = input;
+	return output;
+}
+
 int findElement(char element) {
 	for (int i = 0; i < sizeof(characters); i++) {
 		if (characters[i] == element) {
@@ -22,12 +28,14 @@ int searchDot(std::string inputNumber) {
 	}
 	return -1;
 }
+
 bool isMinus(std::string inputNumber) {
 	if (inputNumber.c_str()[0] == '-') {
 		return true;
 	}
 	return false;
 }
+
 std::string buildRightSide(std::string inputNumber, int indexOfDot, int numeralSystem) {
 	std::string output = "";
 	int power = -1;
@@ -41,8 +49,8 @@ std::string buildRightSide(std::string inputNumber, int indexOfDot, int numeralS
 
 std::string buildLeftSide(std::string inputNumber, int indexOfDot, int numeralSystem) {
 	std::string output = "";
-	for (int i = 1; i < indexOfDot; i++) {
-		int index = (findElement(inputNumber.c_str()[indexOfDot - (i)]));
+	for (int i = 0; i < indexOfDot; i++) {
+		int index = (findElement(inputNumber.c_str()[(indexOfDot - (i))-1]));
 
 		output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " + output;
 	}
@@ -54,6 +62,7 @@ std::string buildResult(std::string inputNumber, int indexOfDot, int numeralSyst
 	std::string rightSide = buildRightSide(inputNumber, indexOfDot, numeralSystem);
 	std::string output;
 	output = leftSide + rightSide;
+	output = deleteLastPlus(output);
 	if (minus) {
 		output = "-(" + output + ")";
 	}
@@ -70,11 +79,7 @@ void sumOfTheBaseLevel(std::string inputNumber, int numeralSystem) {
 	int indexOfDot = searchDot(inputNumber);
 	std::string output = buildResult(inputNumber, indexOfDot, numeralSystem, minus);
 	std::cout << output << std::endl;
-	std::cout << indexOfDot << minus << std::endl << inputNumber;
-
 }
-
-
 
 int revertCalculate(std::string inputnumber, int numeralSystem) {
 	int sum = 0;
