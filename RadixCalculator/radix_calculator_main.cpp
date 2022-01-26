@@ -39,8 +39,8 @@ bool has_minus_at_start(std::string inputNumber)
 std::string build_right_side(std::string inputNumber, int indexOfDot, int numeralSystem)
 {
     std::string output = "";
-
-    for (int i = 1; i < (inputNumber.size() - indexOfDot); i++) {
+    int inputSize = inputNumber.size();
+    for (int i = 1; i < (inputSize - indexOfDot); i++) {
         int index = (findElement(inputNumber.c_str()[i + indexOfDot]));
         output = output + std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(-i) +
                  " + ";
@@ -54,8 +54,8 @@ std::string build_left_side(std::string inputNumber, int indexOfDot, int numeral
     std::string output = "";
 
     for (int i = 0; i < indexOfDot; i++) {
-        int index = (findElement(inputNumber.c_str()[(indexOfDot - (i)) - 1]));
-
+        char charactersOfInput = inputNumber.c_str()[(indexOfDot - (i)) - 1];
+        int index = (findElement(charactersOfInput));
         output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " +
                  output;
     }
@@ -69,7 +69,8 @@ int revert_calculate_from_n_to_10(std::string inputnumber, int numeralSystem)
     std::string finalString;
 
     for (int i = 0; inputnumber.size() - i > 0; i++) {
-        int index = (findElement(inputnumber.c_str()[inputnumber.size() - (i + 1)]));
+        char charactersOfInput = inputnumber.c_str()[inputnumber.size() - (i + 1)];
+        int index = findElement(charactersOfInput);
         sum += index * pow(numeralSystem, i);
         finalString =
                 std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " +
