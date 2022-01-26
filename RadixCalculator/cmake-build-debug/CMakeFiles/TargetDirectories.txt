@@ -1,0 +1,3 @@
+C:/Users/Xolotl/Documents/GitHub/LearC/RadixCalculator/cmake-build-debug/CMakeFiles/RadixCalculator.dir
+C:/Users/Xolotl/Documents/GitHub/LearC/RadixCalculator/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Xolotl/Documents/GitHub/LearC/RadixCalculator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
