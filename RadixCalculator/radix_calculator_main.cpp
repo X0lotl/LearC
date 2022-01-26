@@ -5,7 +5,7 @@
 
 char characters[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-int findElement(char element)
+int find_element(char element)
 {
     for (int i = 0; i < sizeof(characters); i++) {
         if (characters[i] == element) {
@@ -41,7 +41,7 @@ std::string build_right_side(std::string inputNumber, int indexOfDot, int numera
     std::string output = "";
     int inputSize = inputNumber.size();
     for (int i = 1; i < (inputSize - indexOfDot); i++) {
-        int index = (findElement(inputNumber.c_str()[i + indexOfDot]));
+        int index = (find_element(inputNumber.c_str()[i + indexOfDot]));
         output = output + std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(-i) +
                  " + ";
     }
@@ -55,7 +55,7 @@ std::string build_left_side(std::string inputNumber, int indexOfDot, int numeral
 
     for (int i = 0; i < indexOfDot; i++) {
         char charactersOfInput = inputNumber.c_str()[(indexOfDot - (i)) - 1];
-        int index = (findElement(charactersOfInput));
+        int index = (find_element(charactersOfInput));
         output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " +
                  output;
     }
@@ -70,7 +70,7 @@ int revert_calculate_from_n_to_10(std::string inputnumber, int numeralSystem)
 
     for (int i = 0; inputnumber.size() - i > 0; i++) {
         char charactersOfInput = inputnumber.c_str()[inputnumber.size() - (i + 1)];
-        int index = findElement(charactersOfInput);
+        int index = find_element(charactersOfInput);
         sum += index * pow(numeralSystem, i);
         finalString =
                 std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " +
