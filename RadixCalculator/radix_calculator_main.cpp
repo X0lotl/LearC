@@ -36,7 +36,7 @@ bool has_minus_at_start(std::string inputNumber)
     return false;
 }
 
-std::string build_rightside(std::string inputNumber, int indexOfDot, int numeralSystem)
+std::string build_right_side(std::string inputNumber, int indexOfDot, int numeralSystem)
 {
     std::string output = "";
 
@@ -85,7 +85,7 @@ int revert_calculate_from_n_to_10(std::string inputnumber, int numeralSystem)
 std::string build_result(std::string inputNumber, int indexOfDot, int numeralSystem, bool minus)
 {
     std::string leftSide = build_left_side(inputNumber, indexOfDot, numeralSystem);
-    std::string rightSide = build_rightside(inputNumber, indexOfDot, numeralSystem);
+    std::string rightSide = build_right_side(inputNumber, indexOfDot, numeralSystem);
     std::string output;
 
     if (indexOfDot != -1) {
@@ -147,7 +147,7 @@ int main()
 
         std::cout << "Enter numeral system: ";
         std::cin >> numeralSystem;
-        std::cout << "Enter 0/1 (0 - for deafult calculation | 1 - for revert calculation | 2 - for tasks 1 and 2): ";
+        std::cout << "Enter 0/1 (0 - for default calculation | 1 - for revert calculation | 2 - for tasks 1 and 2): ";
         std::cin >> functionPick;
 
         if (functionPick == 1) {
@@ -163,7 +163,7 @@ int main()
             int temp = revert_calculate_from_n_to_10(inputNumber, numeralSystem);
             calculate_from_10_to_n(temp, newNumeralSystem);
         } else {
-            std::cout << "Fucking idiot please enter 0 or 1 !!!!!!";
+            std::cout << "Fucking idiot please enter only 0, 1, 2 !!!!!!";
         }
     }
 
