@@ -57,19 +57,35 @@ std::string buildLeftSide(std::string inputNumber, int indexOfDot, int numeralSy
 	return output;
 }
 
+int revertCalculate(std::string inputnumber, int numeralSystem) {
+	int sum = 0;
+	std::string finalString;
+	for (int i = 0; inputnumber.size() - i > 0; i++) {
+		int index = (findElement(inputnumber.c_str()[inputnumber.size() - (i + 1)]));
+		sum += index * pow(numeralSystem, i);
+		finalString = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " + finalString;
+	}
+	std::cout << finalString << " = " << sum << std::endl;
+	std::cout << "Result is: " << sum << std::endl;
+	return sum;
+}
+
 std::string buildResult(std::string inputNumber, int indexOfDot, int numeralSystem, bool minus) {
 	std::string leftSide = buildLeftSide(inputNumber, indexOfDot, numeralSystem);
 	std::string rightSide = buildRightSide(inputNumber, indexOfDot, numeralSystem);
 	std::string output;
-	output = leftSide + rightSide;
+	if (indexOfDot != -1) {
+		output = leftSide + rightSide;
+	}
+	else {
+		output = revertCalculate(inputNumber, numeralSystem);
+	}
 	output = deleteLastPlus(output);
 	if (minus) {
 		output = "-(" + output + ")";
 	}
 	return output;
 }
-
-
 
 void sumOfTheBaseLevel(std::string inputNumber, int numeralSystem) {
 	bool minus = isMinus(inputNumber);
@@ -79,19 +95,6 @@ void sumOfTheBaseLevel(std::string inputNumber, int numeralSystem) {
 	int indexOfDot = searchDot(inputNumber);
 	std::string output = buildResult(inputNumber, indexOfDot, numeralSystem, minus);
 	std::cout << output << std::endl;
-}
-
-int revertCalculate(std::string inputnumber, int numeralSystem) {
-	int sum = 0;
-	std::string finalString;
-	for (int i = 0; inputnumber.size() - i > 0; i++) {
-	int index = (findElement(inputnumber.c_str()[inputnumber.size() - (i + 1)]));
-		sum += index * pow(numeralSystem, i);
-		finalString = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " + finalString;
-	}
-	std::cout << finalString << " = " << sum << std::endl;
-	std::cout << "Result is: " << sum << std::endl;
-	return sum;
 }
 
 int calculate(int inputnumber, int numeralSystem) {
@@ -124,7 +127,7 @@ int main() {
 
 		std::cout << "Enter numberal system: ";
 		std::cin >> numeralSystem;
-		std::cout << "Enter 0/1 (0 - for deafult calculation | 1 - for revert calculation): ";
+		std::cout << "Enter 0/1 (0 - for deafult calculation | 1 - for revert calculation | 2 - for tasks 1 and 2): ";
 		std::cin >> functionPick;
 
 		if (functionPick == 1) {

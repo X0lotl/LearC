@@ -1,4 +1,4 @@
 ﻿  NumeralSystemCalculator1.cpp
-C:\Users\Xolotl\Documents\GitHub\LearC\NumeralSystemCalculator\NumeralSystemCalculator\NumeralSystemCalculator1.cpp(93,16): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+C:\Users\Xolotl\Documents\GitHub\LearC\NumeralSystemCalculator\NumeralSystemCalculator\NumeralSystemCalculator1.cpp(65,16): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
 C:\Users\Xolotl\Documents\GitHub\LearC\NumeralSystemCalculator\NumeralSystemCalculator\NumeralSystemCalculator1.cpp(21): warning C4715: findElement: значение возвращается не при всех путях выполнения
   NumeralSystemCalculator.vcxproj -> C:\Users\Xolotl\Documents\GitHub\LearC\NumeralSystemCalculator\x64\Debug\NumeralSystemCalculator.exe
