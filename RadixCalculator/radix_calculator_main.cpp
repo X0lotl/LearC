@@ -139,15 +139,18 @@ int main()
     int numeralSystem;
     int functionPick;
     std::string inputNumber;
+
     while (true) {
         std::cout << "Enter input number: ";
         std::cin >> inputNumber;
+
         if (inputNumber == "0") {
             break;
         }
 
         std::cout << "Enter numeral system: ";
         std::cin >> numeralSystem;
+
         std::cout << "Enter 0/1 (0 - for default calculation | 1 - for revert calculation | 2 - for tasks 1 and 2): ";
         std::cin >> functionPick;
 
