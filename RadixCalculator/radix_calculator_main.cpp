@@ -40,11 +40,16 @@ std::string build_right_side(std::string inputNumber, int indexOfDot, int numera
 {
     std::string output = "";
     int inputSize = inputNumber.size();
+    double sum = 0;
+
     for (int i = 1; i < (inputSize - indexOfDot); i++) {
         int index = (find_element(inputNumber.c_str()[i + indexOfDot]));
+        sum += index * pow(numeralSystem, -i);
         output = output + std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(-i) +
                  " + ";
     }
+
+    std::cout << sum << std::endl;
 
     return output;
 }
@@ -52,13 +57,17 @@ std::string build_right_side(std::string inputNumber, int indexOfDot, int numera
 std::string build_left_side(std::string inputNumber, int indexOfDot, int numeralSystem)
 {
     std::string output = "";
+    int sum = 0;
 
     for (int i = 0; i < indexOfDot; i++) {
         char charactersOfInput = inputNumber.c_str()[(indexOfDot - (i)) - 1];
         int index = (find_element(charactersOfInput));
+        sum += index * pow(numeralSystem, i);
         output = std::to_string(index) + " * " + std::to_string(numeralSystem) + " ^ " + std::to_string(i) + " + " +
                  output;
     }
+
+    std::cout << sum << std::endl;
 
     return output;
 }
