@@ -124,7 +124,7 @@ void sum_of_the_base_level(std::string inputNumber, int numeralSystem)
     std::cout << output << std::endl;
 }
 
-int calculate_from_10_to_n(int inputNumber, int numeralSystem)
+std::string calculate_from_10_to_n(int inputNumber, int numeralSystem)
 {
     std::string newCharacter = "";
     std::string oldCharacter = "";
@@ -138,9 +138,47 @@ int calculate_from_10_to_n(int inputNumber, int numeralSystem)
         std::cout << inputNumber << " mod " << numeralSystem << " = " << newCharacter << std::endl;
         std::cout << "\n";
     }
+
     std::cout << "Result is: " << oldCharacter;
 
-    return atoi(oldCharacter.c_str());
+    return oldCharacter;
+}
+
+std::string build_left_side_4_calculation(std::string inputNumber, int numeralSystem, int placeOfDot){
+    std::string output = "";
+    for(int i = 0; i < placeOfDot; i++){
+        output = inputNumber.c_str()[i] + output;
+    }
+
+    return output;
+}
+
+std::string build_right_side_4_calculator(std::string inputNumber, int numeralSystem, int placeOfDot)
+{
+    std::string output = "";
+    for (int i = placeOfDot + 1; i < inputNumber.size(); i++ ){
+        output = inputNumber.c_str()[i] + output;
+    }
+}
+
+std::string calculate_from_10_to_n_double(std::string inputNumber, int numeralSystem)
+{
+    std::string output = "";
+    int indexOfDot = search_dot(inputNumber);
+    std::string leftSide = build_left_side_4_calculation(inputNumber,numeralSystem,indexOfDot);
+
+    for (int i = 0; i < leftSide.size(); i++){
+        output = std::to_string(find_element(leftSide.c_str()[i])) + output;
+    }
+
+    std::string rightSide = build_right_side_4_calculator(inputNumber,numeralSystem, indexOfDot);
+
+    for (int i = 0; i< rightSide.size(); i++){
+
+    }
+    std::cout << "\n" << output;
+
+    return output;
 }
 
 int main()
@@ -156,7 +194,6 @@ int main()
         if (inputNumber == "0") {
             break;
         }
-
         std::cout << "Enter numeral system: ";
         std::cin >> numeralSystem;
 
@@ -169,6 +206,8 @@ int main()
             calculate_from_10_to_n(atoi(inputNumber.c_str()), numeralSystem);
         } else if (functionPick == 2) {
             sum_of_the_base_level(inputNumber, numeralSystem);
+        } else if (functionPick == 3){
+            calculate_from_10_to_n_double(inputNumber,numeralSystem);
         } else if (functionPick == 108) {
             int newNumeralSystem;
             std::cout << "Enter second numeral system: ";
