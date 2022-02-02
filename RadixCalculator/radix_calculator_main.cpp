@@ -5,7 +5,8 @@
 #include <sstream>
 #include <math.h>
 
-char characters[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+char characters[36] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+                       'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
 int find_element(char element) {
     for (int i = 0; i < sizeof(characters); i++) {
@@ -205,7 +206,8 @@ std::string calculate_sum(std::string number1, std::string number2, int numeralS
     int sumIn10 = number1in10 + number2in10;
 
     std::string sumInN = calculate_from_10_to_n(sumIn10, numeralSystem);
-    std::cout << number1 << " + " << number2 << " (" << numeralSystem << ") = " << number1in10 << " + " << number2in10
+    std::cout << "\n" << number1 << " + " << number2 << " (" << numeralSystem << ") = " << number1in10 << " + "
+              << number2in10
               << " (10) = " << sumIn10 << " (10) = " << sumInN << " (" << numeralSystem << ")" << std::endl;
 
     return sumInN;
@@ -218,8 +220,10 @@ std::string calculate_multiplication(std::string number1, std::string number2, i
     int multiplicationIn10 = number1in10 * number2in10;
 
     std::string multiplicationInN = calculate_from_10_to_n(multiplicationIn10, numeralSystem);
-    std::cout << number1 << " * " << number2 << " (" << numeralSystem << ") = " << number1in10 << " * " << number2in10
-              << " (10) = " << multiplicationIn10 << " (10) = " << multiplicationInN << " (" << numeralSystem << ")" << std::endl;
+    std::cout << "\n" << number1 << " * " << number2 << " (" << numeralSystem << ") = " << number1in10 << " * "
+              << number2in10
+              << " (10) = " << multiplicationIn10 << " (10) = " << multiplicationInN << " (" << numeralSystem << ")"
+              << std::endl;
 
     return multiplicationInN;
 }
