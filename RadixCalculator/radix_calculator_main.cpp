@@ -2,6 +2,8 @@
 #include <string>
 #include <cmath>
 #include <stdlib.h>
+#include <sstream>
+#include <math.h>
 
 char characters[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
@@ -72,13 +74,13 @@ std::string build_left_side(std::string inputNumber, int indexOfDot, int numeral
     return output;
 }
 
-int revert_calculate_from_n_to_10(std::string inputnumber, int numeralSystem)
+int revert_calculate_from_n_to_10(std::string inputNumber, int numeralSystem)
 {
     int sum = 0;
     std::string finalString;
 
-    for (int i = 0; inputnumber.size() - i > 0; i++) {
-        char charactersOfInput = inputnumber.c_str()[inputnumber.size() - (i + 1)];
+    for (int i = 0; inputNumber.size() - i > 0; i++) {
+        char charactersOfInput = inputNumber.c_str()[inputNumber.size() - (i + 1)];
         int index = find_element(charactersOfInput);
         sum += index * pow(numeralSystem, i);
         finalString =
@@ -147,7 +149,7 @@ std::string calculate_from_10_to_n(int inputNumber, int numeralSystem)
 std::string build_left_side_4_calculation(std::string inputNumber, int numeralSystem, int placeOfDot){
     std::string output = "";
     for(int i = 0; i < placeOfDot; i++){
-        output = inputNumber.c_str()[i] + output;
+        output = output + inputNumber.c_str()[i];
     }
 
     return output;
@@ -157,26 +159,53 @@ std::string build_right_side_4_calculator(std::string inputNumber, int numeralSy
 {
     std::string output = "";
     for (int i = placeOfDot + 1; i < inputNumber.size(); i++ ){
-        output = inputNumber.c_str()[i] + output;
+        output = output + inputNumber.c_str()[i];
     }
+
+    return output;
+}
+
+std::string calculate_right_side(std::string inputNumber, int numeralSystem)
+{
+    std::cout << "\n";
+    std::stringstream  doubleValue("0."+inputNumber);
+    double inputDouble;
+    double newCharacterDouble;
+    doubleValue >> inputDouble;
+    std::string output = "";
+    int newCharacterInt;
+
+    while (inputDouble != 0) {
+        std::cout << inputDouble << " * " << numeralSystem << " = ";
+        inputDouble = inputDouble * numeralSystem;
+        std::cout << inputDouble << std::endl;
+        inputDouble = modf(inputDouble, &newCharacterDouble);
+        newCharacterInt = newCharacterDouble;
+        output = output + characters[newCharacterInt];
+    }
+
+    std::cout << "Result is: " << output << std::endl;
+
+    return output;
 }
 
 std::string calculate_from_10_to_n_double(std::string inputNumber, int numeralSystem)
 {
     std::string output = "";
     int indexOfDot = search_dot(inputNumber);
-    std::string leftSide = build_left_side_4_calculation(inputNumber,numeralSystem,indexOfDot);
+    std::stringstream intValue(build_left_side_4_calculation(inputNumber,numeralSystem,indexOfDot));
+    int leftSide;
+    intValue >> leftSide;
 
-    for (int i = 0; i < leftSide.size(); i++){
-        output = std::to_string(find_element(leftSide.c_str()[i])) + output;
-    }
+    std::string leftSideAfterCalculation = calculate_from_10_to_n(leftSide, numeralSystem);
 
     std::string rightSide = build_right_side_4_calculator(inputNumber,numeralSystem, indexOfDot);
 
-    for (int i = 0; i< rightSide.size(); i++){
+    std::string rightSideAfterCalculation = calculate_right_side(rightSide,numeralSystem);
 
-    }
-    std::cout << "\n" << output;
+    output = leftSideAfterCalculation + "." + rightSideAfterCalculation;
+
+    std::cout << "\nResult is: " << output << std::endl;
 
     return output;
 }
