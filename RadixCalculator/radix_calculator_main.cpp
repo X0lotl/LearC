@@ -7,8 +7,7 @@
 
 char characters[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-int find_element(char element)
-{
+int find_element(char element) {
     for (int i = 0; i < sizeof(characters); i++) {
         if (characters[i] == element) {
             return i;
@@ -18,8 +17,7 @@ int find_element(char element)
     return -1;
 }
 
-int search_dot(std::string inputNumber)
-{
+int search_dot(std::string inputNumber) {
     for (int i = 0; i < inputNumber.size(); i++) {
         if (inputNumber.c_str()[i] == '.' || inputNumber.c_str()[i] == ',') {
             return i;
@@ -29,8 +27,7 @@ int search_dot(std::string inputNumber)
     return -1;
 }
 
-bool has_minus_at_start(std::string inputNumber)
-{
+bool has_minus_at_start(std::string inputNumber) {
     if (inputNumber.c_str()[0] == '-') {
         return true;
     }
@@ -38,8 +35,7 @@ bool has_minus_at_start(std::string inputNumber)
     return false;
 }
 
-std::string build_right_side(std::string inputNumber, int indexOfDot, int numeralSystem)
-{
+std::string build_right_side(std::string inputNumber, int indexOfDot, int numeralSystem) {
     std::string output = "";
     int inputSize = inputNumber.size();
     double sum = 0;
@@ -56,8 +52,7 @@ std::string build_right_side(std::string inputNumber, int indexOfDot, int numera
     return output;
 }
 
-std::string build_left_side(std::string inputNumber, int indexOfDot, int numeralSystem)
-{
+std::string build_left_side(std::string inputNumber, int indexOfDot, int numeralSystem) {
     std::string output = "";
     int sum = 0;
 
@@ -74,8 +69,7 @@ std::string build_left_side(std::string inputNumber, int indexOfDot, int numeral
     return output;
 }
 
-int revert_calculate_from_n_to_10(std::string inputNumber, int numeralSystem)
-{
+int revert_calculate_from_n_to_10(std::string inputNumber, int numeralSystem) {
     int sum = 0;
     std::string finalString;
 
@@ -94,8 +88,7 @@ int revert_calculate_from_n_to_10(std::string inputNumber, int numeralSystem)
     return sum;
 }
 
-std::string build_result(std::string inputNumber, int indexOfDot, int numeralSystem, bool minus)
-{
+std::string build_result(std::string inputNumber, int indexOfDot, int numeralSystem, bool minus) {
     std::string leftSide = build_left_side(inputNumber, indexOfDot, numeralSystem);
     std::string rightSide = build_right_side(inputNumber, indexOfDot, numeralSystem);
     std::string output;
@@ -113,8 +106,7 @@ std::string build_result(std::string inputNumber, int indexOfDot, int numeralSys
     return output;
 }
 
-void sum_of_the_base_level(std::string inputNumber, int numeralSystem)
-{
+void sum_of_the_base_level(std::string inputNumber, int numeralSystem) {
     bool minus = has_minus_at_start(inputNumber);
 
     if (minus) {
@@ -126,8 +118,7 @@ void sum_of_the_base_level(std::string inputNumber, int numeralSystem)
     std::cout << output << std::endl;
 }
 
-std::string calculate_from_10_to_n(int inputNumber, int numeralSystem)
-{
+std::string calculate_from_10_to_n(int inputNumber, int numeralSystem) {
     std::string newCharacter = "";
     std::string oldCharacter = "";
     std::string temp;
@@ -146,29 +137,27 @@ std::string calculate_from_10_to_n(int inputNumber, int numeralSystem)
     return oldCharacter;
 }
 
-std::string build_left_side_4_calculation(std::string inputNumber, int numeralSystem, int placeOfDot){
+std::string build_left_side_4_calculation(std::string inputNumber, int numeralSystem, int placeOfDot) {
     std::string output = "";
-    for(int i = 0; i < placeOfDot; i++){
+    for (int i = 0; i < placeOfDot; i++) {
         output = output + inputNumber.c_str()[i];
     }
 
     return output;
 }
 
-std::string build_right_side_4_calculator(std::string inputNumber, int numeralSystem, int placeOfDot)
-{
+std::string build_right_side_4_calculator(std::string inputNumber, int numeralSystem, int placeOfDot) {
     std::string output = "";
-    for (int i = placeOfDot + 1; i < inputNumber.size(); i++ ){
+    for (int i = placeOfDot + 1; i < inputNumber.size(); i++) {
         output = output + inputNumber.c_str()[i];
     }
 
     return output;
 }
 
-std::string calculate_right_side(std::string inputNumber, int numeralSystem)
-{
+std::string calculate_right_side(std::string inputNumber, int numeralSystem) {
     std::cout << "\n";
-    std::stringstream  doubleValue("0."+inputNumber);
+    std::stringstream doubleValue("0." + inputNumber);
     double inputDouble;
     double newCharacterDouble;
     doubleValue >> inputDouble;
@@ -189,19 +178,18 @@ std::string calculate_right_side(std::string inputNumber, int numeralSystem)
     return output;
 }
 
-std::string calculate_from_10_to_n_double(std::string inputNumber, int numeralSystem)
-{
+std::string calculate_from_10_to_n_double(std::string inputNumber, int numeralSystem) {
     std::string output = "";
     int indexOfDot = search_dot(inputNumber);
-    std::stringstream intValue(build_left_side_4_calculation(inputNumber,numeralSystem,indexOfDot));
+    std::stringstream intValue(build_left_side_4_calculation(inputNumber, numeralSystem, indexOfDot));
     int leftSide;
     intValue >> leftSide;
 
     std::string leftSideAfterCalculation = calculate_from_10_to_n(leftSide, numeralSystem);
 
-    std::string rightSide = build_right_side_4_calculator(inputNumber,numeralSystem, indexOfDot);
+    std::string rightSide = build_right_side_4_calculator(inputNumber, numeralSystem, indexOfDot);
 
-    std::string rightSideAfterCalculation = calculate_right_side(rightSide,numeralSystem);
+    std::string rightSideAfterCalculation = calculate_right_side(rightSide, numeralSystem);
 
     output = leftSideAfterCalculation + "." + rightSideAfterCalculation;
 
@@ -210,8 +198,33 @@ std::string calculate_from_10_to_n_double(std::string inputNumber, int numeralSy
     return output;
 }
 
-int main()
-{
+std::string calculate_sum(std::string number1, std::string number2, int numeralSystem) {
+    int number1in10 = revert_calculate_from_n_to_10(number1, numeralSystem);
+    int number2in10 = revert_calculate_from_n_to_10(number2, numeralSystem);
+
+    int sumIn10 = number1in10 + number2in10;
+
+    std::string sumInN = calculate_from_10_to_n(sumIn10, numeralSystem);
+    std::cout << number1 << " + " << number2 << " (" << numeralSystem << ") = " << number1in10 << " + " << number2in10
+              << " (10) = " << sumIn10 << " (10) = " << sumInN << " (" << numeralSystem << ")" << std::endl;
+
+    return sumInN;
+}
+
+std::string calculate_multiplication(std::string number1, std::string number2, int numeralSystem) {
+    int number1in10 = revert_calculate_from_n_to_10(number1, numeralSystem);
+    int number2in10 = revert_calculate_from_n_to_10(number2, numeralSystem);
+
+    int multiplicationIn10 = number1in10 * number2in10;
+
+    std::string multiplicationInN = calculate_from_10_to_n(multiplicationIn10, numeralSystem);
+    std::cout << number1 << " * " << number2 << " (" << numeralSystem << ") = " << number1in10 << " * " << number2in10
+              << " (10) = " << multiplicationIn10 << " (10) = " << multiplicationInN << " (" << numeralSystem << ")" << std::endl;
+
+    return multiplicationInN;
+}
+
+int main() {
     int numeralSystem;
     int functionPick;
     std::string inputNumber;
@@ -235,8 +248,18 @@ int main()
             calculate_from_10_to_n(atoi(inputNumber.c_str()), numeralSystem);
         } else if (functionPick == 2) {
             sum_of_the_base_level(inputNumber, numeralSystem);
-        } else if (functionPick == 3){
-            calculate_from_10_to_n_double(inputNumber,numeralSystem);
+        } else if (functionPick == 3) {
+            calculate_from_10_to_n_double(inputNumber, numeralSystem);
+        } else if (functionPick == 4) {
+            std::string secondInputNumber;
+            std::cout << "Enter second number: ";
+            std::cin >> secondInputNumber;
+            calculate_sum(inputNumber, secondInputNumber, numeralSystem);
+        } else if (functionPick == 5) {
+            std::string secondInputNumber;
+            std::cout << "Enter second number: ";
+            std::cin >> secondInputNumber;
+            calculate_multiplication(inputNumber, secondInputNumber, numeralSystem);
         } else if (functionPick == 108) {
             int newNumeralSystem;
             std::cout << "Enter second numeral system: ";
