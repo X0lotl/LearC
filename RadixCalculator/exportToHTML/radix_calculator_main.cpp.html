@@ -1,0 +1,244 @@
+<html>
+<head>
+<title>radix_calculator_main.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bbb529;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #cc7832;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+radix_calculator_main.cpp</font>
+</center></td></tr></table>
+<pre><span class="s0">#include </span><span class="s2">&lt;iostream&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;string&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;cmath&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;stdlib.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;sstream&gt;</span>
+
+<span class="s3">char </span><span class="s1">characters[</span><span class="s4">36</span><span class="s1">] = {</span><span class="s2">'0'</span><span class="s3">, </span><span class="s2">'1'</span><span class="s3">, </span><span class="s2">'2'</span><span class="s3">, </span><span class="s2">'3'</span><span class="s3">, </span><span class="s2">'4'</span><span class="s3">, </span><span class="s2">'5'</span><span class="s3">, </span><span class="s2">'6'</span><span class="s3">, </span><span class="s2">'7'</span><span class="s3">, </span><span class="s2">'8'</span><span class="s3">, </span><span class="s2">'9'</span><span class="s3">, </span><span class="s2">'A'</span><span class="s3">, </span><span class="s2">'B'</span><span class="s3">, </span><span class="s2">'C'</span><span class="s3">, </span><span class="s2">'D'</span><span class="s3">, </span><span class="s2">'E'</span><span class="s3">, </span><span class="s2">'F'</span><span class="s3">, </span><span class="s2">'G'</span><span class="s3">, </span><span class="s2">'H'</span><span class="s3">, </span><span class="s2">'I'</span><span class="s3">,</span>
+                       <span class="s2">'J'</span><span class="s3">, </span><span class="s2">'K'</span><span class="s3">, </span><span class="s2">'L'</span><span class="s3">, </span><span class="s2">'M'</span><span class="s3">, </span><span class="s2">'N'</span><span class="s3">, </span><span class="s2">'O'</span><span class="s3">, </span><span class="s2">'P'</span><span class="s3">, </span><span class="s2">'Q'</span><span class="s3">, </span><span class="s2">'R'</span><span class="s3">, </span><span class="s2">'S'</span><span class="s3">, </span><span class="s2">'T'</span><span class="s3">, </span><span class="s2">'U'</span><span class="s3">, </span><span class="s2">'V'</span><span class="s3">, </span><span class="s2">'W'</span><span class="s3">, </span><span class="s2">'X'</span><span class="s3">, </span><span class="s2">'Y'</span><span class="s3">, </span><span class="s2">'Z'</span><span class="s1">}</span><span class="s3">;</span>
+
+<span class="s3">int </span><span class="s1">find_element(</span><span class="s3">char </span><span class="s1">element) {</span>
+    <span class="s3">for </span><span class="s1">(</span><span class="s3">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s3">; </span><span class="s1">i &lt; </span><span class="s3">sizeof</span><span class="s1">(characters)</span><span class="s3">; </span><span class="s1">i++) {</span>
+        <span class="s3">if </span><span class="s1">(characters[i] == element) {</span>
+            <span class="s3">return </span><span class="s1">i</span><span class="s3">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s3">return </span><span class="s1">-</span><span class="s4">1</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s3">int </span><span class="s1">search_dot(std::string inputNumber) {</span>
+    <span class="s3">for </span><span class="s1">(</span><span class="s3">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s3">; </span><span class="s1">i &lt; inputNumber.size()</span><span class="s3">; </span><span class="s1">i++) {</span>
+        <span class="s3">if </span><span class="s1">(inputNumber.c_str()[i] == </span><span class="s2">'.' </span><span class="s1">|| inputNumber.c_str()[i] == </span><span class="s2">','</span><span class="s1">) {</span>
+            <span class="s3">return </span><span class="s1">i</span><span class="s3">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s3">return </span><span class="s1">inputNumber.length()</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s3">bool </span><span class="s1">has_minus_at_start(std::string inputNumber) {</span>
+    <span class="s3">if </span><span class="s1">(inputNumber.c_str()[</span><span class="s4">0</span><span class="s1">] == </span><span class="s2">'-'</span><span class="s1">) {</span>
+        <span class="s3">return true;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">return false;</span>
+<span class="s1">}</span>
+
+<span class="s3">int </span><span class="s1">build_left_side(std::string inputNumber</span><span class="s3">, int </span><span class="s1">indexOfDot</span><span class="s3">, int </span><span class="s1">numeralSystem</span><span class="s3">, bool </span><span class="s1">minus) {</span>
+    <span class="s1">std::string output = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s3">int </span><span class="s1">sum = </span><span class="s4">0</span><span class="s3">;</span>
+
+    <span class="s3">for </span><span class="s1">(</span><span class="s3">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s3">; </span><span class="s1">i &lt; indexOfDot</span><span class="s3">; </span><span class="s1">i++) {</span>
+        <span class="s3">char </span><span class="s1">charactersOfInput = inputNumber.c_str()[(indexOfDot - (i)) - </span><span class="s4">1</span><span class="s1">]</span><span class="s3">;</span>
+        <span class="s3">int </span><span class="s1">index = (find_element(charactersOfInput))</span><span class="s3">;</span>
+        <span class="s3">if </span><span class="s1">(minus) {</span>
+            <span class="s1">sum -= index * pow(numeralSystem</span><span class="s3">, </span><span class="s1">i)</span><span class="s3">;</span>
+            <span class="s1">output = </span><span class="s2">&quot; - &quot; </span><span class="s1">+ std::to_string(index) + </span><span class="s2">&quot; * &quot; </span><span class="s1">+ std::to_string(numeralSystem) + </span><span class="s2">&quot; ^ &quot; </span><span class="s1">+ std::to_string(i) +</span>
+                     <span class="s1">output</span><span class="s3">;</span>
+        <span class="s1">} </span><span class="s3">else </span><span class="s1">{</span>
+            <span class="s1">sum += index * pow(numeralSystem</span><span class="s3">, </span><span class="s1">i)</span><span class="s3">;</span>
+            <span class="s1">output = </span><span class="s2">&quot; + &quot; </span><span class="s1">+ std::to_string(index) + </span><span class="s2">&quot; * &quot; </span><span class="s1">+ std::to_string(numeralSystem) + </span><span class="s2">&quot; ^ &quot; </span><span class="s1">+ std::to_string(i) +</span>
+                     <span class="s1">output</span><span class="s3">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s1">std::cout &lt;&lt; output</span><span class="s3">;</span>
+
+    <span class="s3">return </span><span class="s1">sum</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s3">double </span><span class="s1">build_right_side(std::string inputNumber</span><span class="s3">, int </span><span class="s1">indexOfDot</span><span class="s3">, int </span><span class="s1">numeralSystem</span><span class="s3">, bool </span><span class="s1">minus) {</span>
+    <span class="s1">std::string output = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s3">int </span><span class="s1">inputSize = inputNumber.size()</span><span class="s3">;</span>
+    <span class="s3">double </span><span class="s1">sum = </span><span class="s4">0</span><span class="s3">;</span>
+
+    <span class="s3">for </span><span class="s1">(</span><span class="s3">int </span><span class="s1">i = </span><span class="s4">1</span><span class="s3">; </span><span class="s1">i &lt; (inputSize - indexOfDot)</span><span class="s3">; </span><span class="s1">i++) {</span>
+        <span class="s3">int </span><span class="s1">index = (find_element(inputNumber.c_str()[i + indexOfDot]))</span><span class="s3">;</span>
+        <span class="s3">if </span><span class="s1">(minus) {</span>
+            <span class="s1">sum -= index * pow(numeralSystem</span><span class="s3">, </span><span class="s1">-i)</span><span class="s3">;</span>
+            <span class="s1">output = output + </span><span class="s2">&quot; - &quot; </span><span class="s1">+ std::to_string(index) + </span><span class="s2">&quot; * &quot; </span><span class="s1">+ std::to_string(numeralSystem) + </span><span class="s2">&quot; ^ &quot; </span><span class="s1">+</span>
+                     <span class="s1">std::to_string(-i)</span><span class="s3">;</span>
+        <span class="s1">} </span><span class="s3">else </span><span class="s1">{</span>
+            <span class="s1">sum += index * pow(numeralSystem</span><span class="s3">, </span><span class="s1">-i)</span><span class="s3">;</span>
+            <span class="s1">output = output + </span><span class="s2">&quot; + &quot; </span><span class="s1">+ std::to_string(index) + </span><span class="s2">&quot; * &quot; </span><span class="s1">+ std::to_string(numeralSystem) + </span><span class="s2">&quot; ^ &quot; </span><span class="s1">+</span>
+                     <span class="s1">std::to_string(-i)</span><span class="s3">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s1">std::cout &lt;&lt; output</span><span class="s3">;</span>
+
+    <span class="s3">return </span><span class="s1">sum</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+
+<span class="s3">double </span><span class="s1">build_result(std::string inputNumber</span><span class="s3">, int </span><span class="s1">indexOfDot</span><span class="s3">, int </span><span class="s1">numeralSystem</span><span class="s3">, bool </span><span class="s1">minus) {</span>
+
+    <span class="s3">int </span><span class="s1">leftSideInt = build_left_side(inputNumber</span><span class="s3">, </span><span class="s1">indexOfDot</span><span class="s3">, </span><span class="s1">numeralSystem</span><span class="s3">, </span><span class="s1">minus)</span><span class="s3">;</span>
+    <span class="s3">double </span><span class="s1">rightSideDouble = build_right_side(inputNumber</span><span class="s3">, </span><span class="s1">indexOfDot</span><span class="s3">, </span><span class="s1">numeralSystem</span><span class="s3">, </span><span class="s1">minus)</span><span class="s3">;</span>
+    <span class="s3">double </span><span class="s1">output = leftSideInt + rightSideDouble</span><span class="s3">;</span>
+
+    <span class="s3">return </span><span class="s1">output</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s1">std::string sum_of_the_base_level(std::string inputNumber</span><span class="s3">, int </span><span class="s1">numeralSystem) {</span>
+    <span class="s3">bool </span><span class="s1">minus = has_minus_at_start(inputNumber)</span><span class="s3">;</span>
+
+    <span class="s3">if </span><span class="s1">(minus) {</span>
+        <span class="s1">inputNumber.erase(</span><span class="s4">0</span><span class="s3">, </span><span class="s4">1</span><span class="s1">)</span><span class="s3">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">int </span><span class="s1">indexOfDot = search_dot(inputNumber)</span><span class="s3">;</span>
+    <span class="s1">std::string output = std::to_string(build_result(inputNumber</span><span class="s3">, </span><span class="s1">indexOfDot</span><span class="s3">, </span><span class="s1">numeralSystem</span><span class="s3">, </span><span class="s1">minus))</span><span class="s3">;</span>
+    <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot; = &quot; </span><span class="s1">&lt;&lt; output &lt;&lt; std::endl</span><span class="s3">;</span>
+
+    <span class="s3">return </span><span class="s1">output</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s1">std::string calculate_from_10_to_n(</span><span class="s3">int </span><span class="s1">inputNumber</span><span class="s3">, int </span><span class="s1">numeralSystem) {</span>
+    <span class="s1">std::string newCharacter = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s1">std::string oldCharacter = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s1">std::string temp</span><span class="s3">;</span>
+
+    <span class="s3">for </span><span class="s1">(</span><span class="s3">; </span><span class="s1">(inputNumber + numeralSystem) &gt; numeralSystem</span><span class="s3">; </span><span class="s1">inputNumber /= numeralSystem) {</span>
+        <span class="s1">temp = oldCharacter</span><span class="s3">;</span>
+        <span class="s1">newCharacter = characters[inputNumber % numeralSystem]</span><span class="s3">;</span>
+        <span class="s1">oldCharacter = newCharacter + temp</span><span class="s3">;</span>
+        <span class="s1">std::cout &lt;&lt; inputNumber &lt;&lt; </span><span class="s2">&quot; div &quot; </span><span class="s1">&lt;&lt; numeralSystem &lt;&lt; </span><span class="s2">&quot; = &quot; </span><span class="s1">&lt;&lt; inputNumber / numeralSystem &lt;&lt; std::endl</span><span class="s3">;</span>
+        <span class="s1">std::cout &lt;&lt; inputNumber &lt;&lt; </span><span class="s2">&quot; mod &quot; </span><span class="s1">&lt;&lt; numeralSystem &lt;&lt; </span><span class="s2">&quot; = &quot; </span><span class="s1">&lt;&lt; newCharacter &lt;&lt; std::endl</span><span class="s3">;</span>
+        <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;</span><span class="s3">\n</span><span class="s2">&quot;</span><span class="s3">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;Result is: &quot; </span><span class="s1">&lt;&lt; oldCharacter</span><span class="s3">;</span>
+
+    <span class="s3">return </span><span class="s1">oldCharacter</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s1">std::string build_left_side_4_calculation(std::string inputNumber</span><span class="s3">, int </span><span class="s1">numeralSystem</span><span class="s3">, int </span><span class="s1">placeOfDot) {</span>
+    <span class="s1">std::string output = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s3">for </span><span class="s1">(</span><span class="s3">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s3">; </span><span class="s1">i &lt; placeOfDot</span><span class="s3">; </span><span class="s1">i++) {</span>
+        <span class="s1">output = output + inputNumber.c_str()[i]</span><span class="s3">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">return </span><span class="s1">output</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s1">std::string build_right_side_4_calculator(std::string inputNumber</span><span class="s3">, int </span><span class="s1">numeralSystem</span><span class="s3">, int </span><span class="s1">placeOfDot) {</span>
+    <span class="s1">std::string output = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s3">for </span><span class="s1">(</span><span class="s3">int </span><span class="s1">i = placeOfDot + </span><span class="s4">1</span><span class="s3">; </span><span class="s1">i &lt; inputNumber.size()</span><span class="s3">; </span><span class="s1">i++) {</span>
+        <span class="s1">output = output + inputNumber.c_str()[i]</span><span class="s3">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">return </span><span class="s1">output</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s1">std::string calculate_right_side(std::string inputNumber</span><span class="s3">, int </span><span class="s1">numeralSystem) {</span>
+    <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;</span><span class="s3">\n</span><span class="s2">&quot;</span><span class="s3">;</span>
+    <span class="s1">std::stringstream doubleValue(</span><span class="s2">&quot;0.&quot; </span><span class="s1">+ inputNumber)</span><span class="s3">;</span>
+    <span class="s3">double </span><span class="s1">inputDouble</span><span class="s3">;</span>
+    <span class="s3">double </span><span class="s1">newCharacterDouble</span><span class="s3">;</span>
+    <span class="s1">doubleValue &gt;&gt; inputDouble</span><span class="s3">;</span>
+    <span class="s1">std::string output = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s3">int </span><span class="s1">newCharacterInt</span><span class="s3">;</span>
+
+    <span class="s3">while </span><span class="s1">(inputDouble != </span><span class="s4">0</span><span class="s1">) {</span>
+        <span class="s1">std::cout &lt;&lt; inputDouble &lt;&lt; </span><span class="s2">&quot; * &quot; </span><span class="s1">&lt;&lt; numeralSystem &lt;&lt; </span><span class="s2">&quot; = &quot;</span><span class="s3">;</span>
+        <span class="s1">inputDouble = inputDouble * numeralSystem</span><span class="s3">;</span>
+        <span class="s1">std::cout &lt;&lt; inputDouble &lt;&lt; std::endl</span><span class="s3">;</span>
+        <span class="s1">inputDouble = modf(inputDouble</span><span class="s3">, </span><span class="s1">&amp;newCharacterDouble)</span><span class="s3">;</span>
+        <span class="s1">newCharacterInt = newCharacterDouble</span><span class="s3">;</span>
+        <span class="s1">output = output + characters[newCharacterInt]</span><span class="s3">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;Result is: &quot; </span><span class="s1">&lt;&lt; output &lt;&lt; std::endl</span><span class="s3">;</span>
+
+    <span class="s3">return </span><span class="s1">output</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s1">std::string calculate_from_10_to_n_double(std::string inputNumber</span><span class="s3">, int </span><span class="s1">numeralSystem) {</span>
+    <span class="s3">bool </span><span class="s1">minus = has_minus_at_start(inputNumber)</span><span class="s3">;</span>
+
+    <span class="s3">if </span><span class="s1">(minus) {</span>
+        <span class="s1">inputNumber.erase(</span><span class="s4">0</span><span class="s3">, </span><span class="s4">1</span><span class="s1">)</span><span class="s3">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">int </span><span class="s1">indexOfDot = search_dot(inputNumber)</span><span class="s3">;</span>
+    <span class="s1">std::string output = </span><span class="s2">&quot;&quot;</span><span class="s3">;</span>
+    <span class="s3">int </span><span class="s1">leftSide</span><span class="s3">;</span>
+
+    <span class="s1">std::stringstream intValue(build_left_side_4_calculation(inputNumber</span><span class="s3">, </span><span class="s1">numeralSystem</span><span class="s3">, </span><span class="s1">indexOfDot))</span><span class="s3">;</span>
+    <span class="s1">intValue &gt;&gt; leftSide</span><span class="s3">;</span>
+
+        <span class="s1">std::string leftSideAfterCalculation = calculate_from_10_to_n(leftSide</span><span class="s3">, </span><span class="s1">numeralSystem)</span><span class="s3">;</span>
+
+        <span class="s1">std::string rightSide = build_right_side_4_calculator(inputNumber</span><span class="s3">, </span><span class="s1">numeralSystem</span><span class="s3">, </span><span class="s1">indexOfDot)</span><span class="s3">;</span>
+
+        <span class="s1">std::string rightSideAfterCalculation = calculate_right_side(rightSide</span><span class="s3">, </span><span class="s1">numeralSystem)</span><span class="s3">;</span>
+
+        <span class="s1">output = leftSideAfterCalculation + </span><span class="s2">&quot;.&quot; </span><span class="s1">+ rightSideAfterCalculation</span><span class="s3">;</span>
+
+        <span class="s3">if </span><span class="s1">(minus) {</span>
+            <span class="s1">output = </span><span class="s2">&quot;-&quot; </span><span class="s1">+ output</span><span class="s3">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;</span><span class="s3">\n</span><span class="s2">Result is: &quot; </span><span class="s1">&lt;&lt; output &lt;&lt; std::endl</span><span class="s3">;</span>
+
+    <span class="s3">return </span><span class="s1">output</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s3">void </span><span class="s1">calculate_from_n_to_p(std::string inputNumber</span><span class="s3">, int </span><span class="s1">firstNumeralSystem</span><span class="s3">, int </span><span class="s1">secondNumeralSystem) {</span>
+    <span class="s1">std::string inputNumberAfterConvertIn10Radix = sum_of_the_base_level(inputNumber</span><span class="s3">, </span><span class="s1">firstNumeralSystem)</span><span class="s3">;</span>
+    <span class="s1">calculate_from_10_to_n_double(inputNumberAfterConvertIn10Radix</span><span class="s3">, </span><span class="s1">secondNumeralSystem)</span><span class="s3">;</span>
+<span class="s1">}</span>
+
+<span class="s3">int </span><span class="s1">main() {</span>
+    <span class="s3">int </span><span class="s1">firstNumeralSystem</span><span class="s3">;</span>
+    <span class="s3">int </span><span class="s1">secondNumeralSystem</span><span class="s3">;</span>
+    <span class="s1">std::string inputNumber</span><span class="s3">;</span>
+
+    <span class="s3">while </span><span class="s1">(</span><span class="s3">true</span><span class="s1">) {</span>
+        <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;Enter first number: &quot;</span><span class="s3">;</span>
+        <span class="s1">std::cin &gt;&gt; inputNumber</span><span class="s3">;</span>
+
+        <span class="s3">if </span><span class="s1">(inputNumber == </span><span class="s2">&quot;0&quot;</span><span class="s1">) {</span>
+            <span class="s3">break;</span>
+        <span class="s1">}</span>
+        <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;Enter numeral system for first number: &quot;</span><span class="s3">;</span>
+        <span class="s1">std::cin &gt;&gt; firstNumeralSystem</span><span class="s3">;</span>
+
+        <span class="s1">std::cout &lt;&lt; </span><span class="s2">&quot;Enter numeral system for output: &quot;</span><span class="s3">;</span>
+        <span class="s1">std::cin &gt;&gt; secondNumeralSystem</span><span class="s3">;</span>
+
+        <span class="s1">calculate_from_n_to_p(inputNumber</span><span class="s3">, </span><span class="s1">firstNumeralSystem</span><span class="s3">, </span><span class="s1">secondNumeralSystem)</span><span class="s3">;</span>
+    <span class="s1">}</span>
+
+    <span class="s3">return </span><span class="s4">0</span><span class="s3">;</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
